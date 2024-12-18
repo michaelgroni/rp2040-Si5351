@@ -24,10 +24,21 @@ public:
      * @param scl is a GPIO pin that can be used as SCL with `i2cPort`, for example `1`.
      * @param xtalFreq is the crystal frequency in Hz.
      */
-    Si5351(i2c_inst i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, double xtalFreq);
+    Si5351(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, double xtalFreq = 25000000);
 
     /**
      * @brief Disables all output drivers and powers them down.
      */
-    void outputsOff()
+    void setOutputsOff();
+
+    /**
+     * Disables the interrupt pin.
+     */
+    void disableInterrupts();
+
+    /**
+     * Disables the OEB pin.
+    */
+    void disableOEBPin()
+
 };
