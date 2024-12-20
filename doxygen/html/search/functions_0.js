@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.cpp']]]
+  ['disableinterrupts_0',['disableInterrupts',['../class_si5351.html#ae6911f9c321a15473a9d77ca68ca9afb',1,'Si5351']]]
 ];

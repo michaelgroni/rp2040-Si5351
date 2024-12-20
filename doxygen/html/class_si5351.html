@@ -107,12 +107,17 @@ $(function(){initNavTree('class_si5351.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a91a172be5ca9b7eb373c785b9ca9b376" id="r_a91a172be5ca9b7eb373c785b9ca9b376"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91a172be5ca9b7eb373c785b9ca9b376">Si5351</a> (i2c_inst i2cPort, uint8_t sda, uint8_t scl)</td></tr>
-<tr class="separator:a91a172be5ca9b7eb373c785b9ca9b376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa871227abfeb4bd378bb57a27501485b" id="r_aa871227abfeb4bd378bb57a27501485b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa871227abfeb4bd378bb57a27501485b">Si5351</a> (i2c_inst *i2cPort=i2c0, uint8_t i2cAddr=0x60, uint8_t sda=0, uint8_t scl=1, double xtalFreq=25000000)</td></tr>
+<tr class="separator:aa871227abfeb4bd378bb57a27501485b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af73a0a672c491dd5b3a0c30207f1bcae" id="r_af73a0a672c491dd5b3a0c30207f1bcae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af73a0a672c491dd5b3a0c30207f1bcae">setOutputsOff</a> ()</td></tr>
+<tr class="memdesc:af73a0a672c491dd5b3a0c30207f1bcae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables all output drivers and powers them down.  <br /></td></tr>
+<tr class="separator:af73a0a672c491dd5b3a0c30207f1bcae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6911f9c321a15473a9d77ca68ca9afb" id="r_ae6911f9c321a15473a9d77ca68ca9afb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6911f9c321a15473a9d77ca68ca9afb">disableInterrupts</a> ()</td></tr>
+<tr class="separator:ae6911f9c321a15473a9d77ca68ca9afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a91a172be5ca9b7eb373c785b9ca9b376" name="a91a172be5ca9b7eb373c785b9ca9b376"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91a172be5ca9b7eb373c785b9ca9b376">&#9670;&#160;</a></span>Si5351()</h2>
+<a id="aa871227abfeb4bd378bb57a27501485b" name="aa871227abfeb4bd378bb57a27501485b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa871227abfeb4bd378bb57a27501485b">&#9670;&#160;</a></span>Si5351()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -120,28 +125,78 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">Si5351::Si5351 </td>
           <td>(</td>
-          <td class="paramtype">i2c_inst</td>          <td class="paramname"><span class="paramname"><em>i2cPort</em></span>, </td>
+          <td class="paramtype">i2c_inst *</td>          <td class="paramname"><span class="paramname"><em>i2cPort</em></span><span class="paramdefsep"> = </span><span class="paramdefval">i2c0</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>sda</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>i2cAddr</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0x60</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>scl</em></span>&#160;)</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>sda</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>scl</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>xtalFreq</em></span><span class="paramdefsep"> = </span><span class="paramdefval">25000000</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">i2cPort</td><td>is an I2C controller, for example <code>i2c0</code>. It must be initialized. </td></tr>
+    <tr><td class="paramname">i2cPort</td><td>is an I2C controller, for example <code>i2c0</code>. It must have been initialized. </td></tr>
+    <tr><td class="paramname">i2cAddr</td><td>is the I2C address. </td></tr>
     <tr><td class="paramname">sda</td><td>is a GPIO pin that can be used as SDA with <code>i2cPort</code>, for example <code>0</code>. </td></tr>
     <tr><td class="paramname">scl</td><td>is a GPIO pin that can be used as SCL with <code>i2cPort</code>, for example <code>1</code>. </td></tr>
+    <tr><td class="paramname">xtalFreq</td><td>is the crystal frequency in Hz. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae6911f9c321a15473a9d77ca68ca9afb" name="ae6911f9c321a15473a9d77ca68ca9afb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6911f9c321a15473a9d77ca68ca9afb">&#9670;&#160;</a></span>disableInterrupts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Si5351::disableInterrupts </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disables the interrupt pin. </p>
+
+</div>
+</div>
+<a id="af73a0a672c491dd5b3a0c30207f1bcae" name="af73a0a672c491dd5b3a0c30207f1bcae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af73a0a672c491dd5b3a0c30207f1bcae">&#9670;&#160;</a></span>setOutputsOff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Si5351::setOutputsOff </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables all output drivers and powers them down. </p>
 
 </div>
 </div>

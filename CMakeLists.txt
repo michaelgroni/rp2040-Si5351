@@ -54,7 +54,7 @@ target_include_directories(rp2040-Si5351 PRIVATE
 )
 
 add_library(Si5151 Si5151.cpp)
-target_link_libraries(Si5351 hardware_i2c)
+target_link_libraries(Si5351 pico_stdlib hardware_i2c)
 
 # Add any user requested libraries
 target_link_libraries(rp2040-Si5351 

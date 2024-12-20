@@ -107,16 +107,29 @@ $(function(){initNavTree('_si5351_8hpp_source.html',''); initResizable(true); })
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="class_si5351.html">    5</a></span><span class="keyword">class </span><a class="code hl_class" href="class_si5351.html">Si5351</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">const</span> i2c_inst I2C_PORT;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">const</span> uint8_t SDA;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">const</span> uint8_t SCL; </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_function" href="class_si5351.html#a91a172be5ca9b7eb373c785b9ca9b376">Si5351</a>(i2c_inst i2cPort, uint8_t sda, uint8_t scl);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>};</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    i2c_inst* I2C_PORT;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">const</span> uint8_t I2C_ADDR;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">const</span> uint8_t SDA;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">const</span> uint8_t SCL; </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> XTAL_FREQ;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">void</span> waitAfterPowerOn();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="class_si5351.html#aa871227abfeb4bd378bb57a27501485b">Si5351</a>(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, <span class="keywordtype">double</span> xtalFreq = 25000000);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_si5351.html#af73a0a672c491dd5b3a0c30207f1bcae">setOutputsOff</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_si5351.html#ae6911f9c321a15473a9d77ca68ca9afb">disableInterrupts</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> disableOEBPin()</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
 </div>
 <div class="ttc" id="aclass_si5351_html"><div class="ttname"><a href="class_si5351.html">Si5351</a></div><div class="ttdef"><b>Definition</b> Si5351.hpp:6</div></div>
-<div class="ttc" id="aclass_si5351_html_a91a172be5ca9b7eb373c785b9ca9b376"><div class="ttname"><a href="class_si5351.html#a91a172be5ca9b7eb373c785b9ca9b376">Si5351::Si5351</a></div><div class="ttdeci">Si5351(i2c_inst i2cPort, uint8_t sda, uint8_t scl)</div><div class="ttdef"><b>Definition</b> Si5351.cpp:3</div></div>
+<div class="ttc" id="aclass_si5351_html_aa871227abfeb4bd378bb57a27501485b"><div class="ttname"><a href="class_si5351.html#aa871227abfeb4bd378bb57a27501485b">Si5351::Si5351</a></div><div class="ttdeci">Si5351(i2c_inst *i2cPort=i2c0, uint8_t i2cAddr=0x60, uint8_t sda=0, uint8_t scl=1, double xtalFreq=25000000)</div><div class="ttdef"><b>Definition</b> Si5351.cpp:14</div></div>
+<div class="ttc" id="aclass_si5351_html_ae6911f9c321a15473a9d77ca68ca9afb"><div class="ttname"><a href="class_si5351.html#ae6911f9c321a15473a9d77ca68ca9afb">Si5351::disableInterrupts</a></div><div class="ttdeci">void disableInterrupts()</div><div class="ttdef"><b>Definition</b> Si5351.cpp:37</div></div>
+<div class="ttc" id="aclass_si5351_html_af73a0a672c491dd5b3a0c30207f1bcae"><div class="ttname"><a href="class_si5351.html#af73a0a672c491dd5b3a0c30207f1bcae">Si5351::setOutputsOff</a></div><div class="ttdeci">void setOutputsOff()</div><div class="ttdoc">Disables all output drivers and powers them down.</div><div class="ttdef"><b>Definition</b> Si5351.cpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

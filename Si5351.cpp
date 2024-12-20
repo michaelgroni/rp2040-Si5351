@@ -1,14 +1,23 @@
 #include <Si5351.hpp>
 
+#include "pico/stdlib.h"
+
 void Si5351::waitAfterPowerOn()
 {
     uint8_t siRegister = 0;
     uint8_t siData;
     do
     {
-        i2c_write_blocking(I2C_PORT, I2C_ADDR, &siRegister, 1, false);
-        i2c_read_blocking(I2C_PORT, I2C_ADDR, &siData, 1, false);
+        siData = readByte(0);
     } while ((siData & 0x88) != 0);
+}
+
+uint8_t Si5351::readByte(uint8_t reg)
+{
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, &reg, 1, false);
+    uint8_t data;
+    i2c_read_blocking(I2C_PORT, I2C_ADDR, &data, 1, false);
+    return data;        
 }
 
 Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, double xtalFreq)

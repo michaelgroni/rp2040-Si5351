@@ -12,9 +12,16 @@ private:
     const double XTAL_FREQ;
 
     /**
-     * @ brief Blocks until Si5351 is intialized and CLKIN is valid
+     * @brief Blocks until Si5351 is intialized and CLKIN is valid
      */
     void waitAfterPowerOn();
+
+    /**
+     * @brief Reads a single byte blocking.
+     * @param reg ist the register to read from.
+     * 
+     */
+    uint8_t readByte(uint8_t register);
 
 public:
     /**
@@ -40,5 +47,6 @@ public:
      * Disables the OEB pin.
     */
     void disableOEBPin()
+
 
 };
