@@ -34,30 +34,6 @@ public:
     Si5351(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, double xtalFreq = 25000000);
 
     /**
-     * @brief Disables all output drivers and powers them down.
-     */
-    void setOutputsOff();
-
-    /**
-     * @param clkIndex must be between 0 and 7. Other values are treated like 0.
-     * @param powerDown sets the mode of the output driver.
-     * @param intMode sets the multisynth int mode.
-     * @param inputSource must be 0 (PLLA) or 1 (PLLB on Si5351A/C or VCXO on Si5351B). Other values are treated like 0.
-     * @param invert inverts the output clock if set to true.
-     * @param outputSource must be 0 (XTAL) or 3 (multisynth). Other values are treated like 3.
-     * @param strenth must be 8, 6, 4 or 2. Other values are treated like 2.
-     */
-    void setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength);
-
-    /**
-     * @brief Sets the clock input divider.
-     * The parameters for the pll sources are ignored because
-     * at the moment only the Si5351A ist supported.
-     * @param inputDivider must be 1, 2, 4 or 8. Other values are treated like 1.
-     */
-    void setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0);
-
-    /**
      * Disables the interrupt pin.
      */
     void disableInterrupts();
@@ -66,4 +42,28 @@ public:
      * Disables the OEB pin.
     */
     void disableOEBPin();
+
+    /**
+     * @param clkIndex must be between 0 and 7. Other values are treated like 0.
+     * @param powerDown sets the mode of the output driver.
+     * @param intMode sets the multisynth int mode.
+     * @param inputSource must be 0 (PLLA) or 1 (PLLB on Si5351A/C or VCXO on Si5351B). Other values are treated like 0.
+     * @param invert inverts the output clock if set to true.
+     * @param outputSource must be 0 (XTAL) or 3 (multisynth). Other values are treated like 3.
+     * @param strenth must be 2, 4, 6 or 8. Other values are treated like 2.
+     */
+    void setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength);
+
+    /**
+     * @brief Disables all output drivers and powers them down.
+     */
+    void setOutputsOff();
+
+    /**
+     * @brief Sets the clock input divider.
+     * The parameters for the pll sources are ignored because
+     * at the moment only the Si5351A ist supported.
+     * @param inputDivider must be 1, 2, 4 or 8. Other values are treated like 1.
+     */
+    void setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0);
 };

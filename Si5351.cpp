@@ -29,6 +29,44 @@ Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, dou
     disableOEBPin();
 }
 
+void Si5351::disableInterrupts()
+{
+    uint8_t data[2] = {2, 0xF0};
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+}
+
+void Si5351::disableOEBPin()
+{
+    uint8_t data[2] = {9, 0xFF};
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+}
+
+void Si5351::setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength)
+{
+    uint8_t data[2] = {16, 0x00};
+
+    if (clkIndex <= 7) data[0] += clkIndex;
+
+    if (powerDown) data[1] += 0x80;
+    if (intMode) data[1] += 0x40;
+    if (inputSource == 1) data[1] += 0x20;
+    if (invert) data[1] += 0x10;
+    if (outputSource > 0) data[1] += 0x0C;
+
+    switch(strength)
+    {
+        case 8:
+            data[1] += 0x03;
+            break;
+        case 6:
+            data[1] += 0x02;
+            break;
+        case 4:
+            data[1] = 0x01;
+            break;
+    }
+}
+
 void Si5351::setOutputsOff()
 {
     // off
@@ -63,17 +101,5 @@ void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB
             data[1] = 0x00;
     }
 
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
-}
-
-void Si5351::disableInterrupts()
-{
-    uint8_t data[2] = {2, 0xF0};
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
-}
-
-void Si5351::disableOEBPin()
-{
-    uint8_t data[2] = {9, 0xFF};
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
 }
