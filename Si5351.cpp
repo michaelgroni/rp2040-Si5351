@@ -43,6 +43,29 @@ void Si5351::setOutputsOff()
     }
 }
 
+void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0)
+{
+    uint8_t data[2] = {15, 0x00};
+
+    switch(inputDivider)
+    {
+        case 8:
+            data[1] = 0xC0;
+            break;
+        case 4:
+            data[1] = 0x80;
+            break;
+        case 2:
+            data[1] = 0x40;
+            break;
+        case 1:
+        default:
+            data[1] = 0x00;
+    }
+
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+}
+
 void Si5351::disableInterrupts()
 {
     uint8_t data[2] = {2, 0xF0};

@@ -112,8 +112,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af73a0a672c491dd5b3a0c30207f1bcae" id="r_af73a0a672c491dd5b3a0c30207f1bcae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af73a0a672c491dd5b3a0c30207f1bcae">setOutputsOff</a> ()</td></tr>
 <tr class="memdesc:af73a0a672c491dd5b3a0c30207f1bcae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables all output drivers and powers them down.  <br /></td></tr>
 <tr class="separator:af73a0a672c491dd5b3a0c30207f1bcae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11fb472be613d2230b9b007e6f7d927a" id="r_a11fb472be613d2230b9b007e6f7d927a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11fb472be613d2230b9b007e6f7d927a">setPllInputSource</a> (uint8_t inputDivider, uint8_t sourceB=0, uint8_t sourceA=0)</td></tr>
+<tr class="memdesc:a11fb472be613d2230b9b007e6f7d927a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the clock input divider. The parameters for the pll sources are ignored because at the moment only the Si5351A ist supported.  <br /></td></tr>
+<tr class="separator:a11fb472be613d2230b9b007e6f7d927a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6911f9c321a15473a9d77ca68ca9afb" id="r_ae6911f9c321a15473a9d77ca68ca9afb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6911f9c321a15473a9d77ca68ca9afb">disableInterrupts</a> ()</td></tr>
 <tr class="separator:ae6911f9c321a15473a9d77ca68ca9afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac375b0cdf4ffe8fb5dc314085ce721a6" id="r_ac375b0cdf4ffe8fb5dc314085ce721a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac375b0cdf4ffe8fb5dc314085ce721a6">disableOEBPin</a> ()</td></tr>
+<tr class="separator:ac375b0cdf4ffe8fb5dc314085ce721a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa871227abfeb4bd378bb57a27501485b" name="aa871227abfeb4bd378bb57a27501485b"></a>
@@ -181,6 +186,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac375b0cdf4ffe8fb5dc314085ce721a6" name="ac375b0cdf4ffe8fb5dc314085ce721a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac375b0cdf4ffe8fb5dc314085ce721a6">&#9670;&#160;</a></span>disableOEBPin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Si5351::disableOEBPin </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disables the OEB pin. </p>
+
+</div>
+</div>
 <a id="af73a0a672c491dd5b3a0c30207f1bcae" name="af73a0a672c491dd5b3a0c30207f1bcae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af73a0a672c491dd5b3a0c30207f1bcae">&#9670;&#160;</a></span>setOutputsOff()</h2>
 
@@ -197,6 +220,40 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Disables all output drivers and powers them down. </p>
+
+</div>
+</div>
+<a id="a11fb472be613d2230b9b007e6f7d927a" name="a11fb472be613d2230b9b007e6f7d927a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11fb472be613d2230b9b007e6f7d927a">&#9670;&#160;</a></span>setPllInputSource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Si5351::setPllInputSource </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>inputDivider</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>sourceB</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>sourceA</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the clock input divider. The parameters for the pll sources are ignored because at the moment only the Si5351A ist supported. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputDivider</td><td>must be 1, 2, 4 or 8. Other values are treated like 1. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
