@@ -55,6 +55,13 @@ public:
     void setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength);
 
     /**
+     * @brief Determins the state of a disabled output.
+     * @param clkIndex must be between 0 and 7. Other values are treated like 0.
+     * @param disState must be 0 (low), 1 (high), 2 (high Z) or 3 (never disabled). Higher bits are ignored.
+     */
+    void setOutputDisableState(uint8_t clkIndex, const uint8_t disState);
+
+    /**
      * @brief Disables all output drivers and powers them down.
      */
     void setOutputsOff();

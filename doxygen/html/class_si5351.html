@@ -109,16 +109,18 @@ $(function(){initNavTree('class_si5351.html',''); initResizable(true); });
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa871227abfeb4bd378bb57a27501485b" id="r_aa871227abfeb4bd378bb57a27501485b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa871227abfeb4bd378bb57a27501485b">Si5351</a> (i2c_inst *i2cPort=i2c0, uint8_t i2cAddr=0x60, uint8_t sda=0, uint8_t scl=1, double xtalFreq=25000000)</td></tr>
 <tr class="separator:aa871227abfeb4bd378bb57a27501485b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af73a0a672c491dd5b3a0c30207f1bcae" id="r_af73a0a672c491dd5b3a0c30207f1bcae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af73a0a672c491dd5b3a0c30207f1bcae">setOutputsOff</a> ()</td></tr>
-<tr class="memdesc:af73a0a672c491dd5b3a0c30207f1bcae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables all output drivers and powers them down.  <br /></td></tr>
-<tr class="separator:af73a0a672c491dd5b3a0c30207f1bcae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11fb472be613d2230b9b007e6f7d927a" id="r_a11fb472be613d2230b9b007e6f7d927a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11fb472be613d2230b9b007e6f7d927a">setPllInputSource</a> (uint8_t inputDivider, uint8_t sourceB=0, uint8_t sourceA=0)</td></tr>
-<tr class="memdesc:a11fb472be613d2230b9b007e6f7d927a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the clock input divider. The parameters for the pll sources are ignored because at the moment only the Si5351A ist supported.  <br /></td></tr>
-<tr class="separator:a11fb472be613d2230b9b007e6f7d927a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6911f9c321a15473a9d77ca68ca9afb" id="r_ae6911f9c321a15473a9d77ca68ca9afb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6911f9c321a15473a9d77ca68ca9afb">disableInterrupts</a> ()</td></tr>
 <tr class="separator:ae6911f9c321a15473a9d77ca68ca9afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac375b0cdf4ffe8fb5dc314085ce721a6" id="r_ac375b0cdf4ffe8fb5dc314085ce721a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac375b0cdf4ffe8fb5dc314085ce721a6">disableOEBPin</a> ()</td></tr>
 <tr class="separator:ac375b0cdf4ffe8fb5dc314085ce721a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9441a6eb45d277ec43c97d22f0b668b" id="r_aa9441a6eb45d277ec43c97d22f0b668b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9441a6eb45d277ec43c97d22f0b668b">setClkControl</a> (const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength)</td></tr>
+<tr class="separator:aa9441a6eb45d277ec43c97d22f0b668b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af73a0a672c491dd5b3a0c30207f1bcae" id="r_af73a0a672c491dd5b3a0c30207f1bcae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af73a0a672c491dd5b3a0c30207f1bcae">setOutputsOff</a> ()</td></tr>
+<tr class="memdesc:af73a0a672c491dd5b3a0c30207f1bcae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables all output drivers and powers them down.  <br /></td></tr>
+<tr class="separator:af73a0a672c491dd5b3a0c30207f1bcae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a505914d0de591d086df8bba24ae6be5e" id="r_a505914d0de591d086df8bba24ae6be5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a505914d0de591d086df8bba24ae6be5e">setPllInputSource</a> (const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0)</td></tr>
+<tr class="memdesc:a505914d0de591d086df8bba24ae6be5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the clock input divider. The parameters for the pll sources are ignored because at the moment only the Si5351A ist supported.  <br /></td></tr>
+<tr class="separator:a505914d0de591d086df8bba24ae6be5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa871227abfeb4bd378bb57a27501485b" name="aa871227abfeb4bd378bb57a27501485b"></a>
@@ -204,6 +206,64 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa9441a6eb45d277ec43c97d22f0b668b" name="aa9441a6eb45d277ec43c97d22f0b668b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9441a6eb45d277ec43c97d22f0b668b">&#9670;&#160;</a></span>setClkControl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Si5351::setClkControl </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>clkIndex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>powerDown</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>intMode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>inputSource</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>invert</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>outputSource</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>strength</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clkIndex</td><td>must be between 0 and 7. Other values are treated like 0. </td></tr>
+    <tr><td class="paramname">powerDown</td><td>sets the mode of the output driver. </td></tr>
+    <tr><td class="paramname">intMode</td><td>sets the multisynth int mode. </td></tr>
+    <tr><td class="paramname">inputSource</td><td>must be 0 (PLLA) or 1 (PLLB on Si5351A/C or VCXO on Si5351B). Other values are treated like 0. </td></tr>
+    <tr><td class="paramname">invert</td><td>inverts the output clock if set to true. </td></tr>
+    <tr><td class="paramname">outputSource</td><td>must be 0 (XTAL) or 3 (multisynth). Other values are treated like 3. </td></tr>
+    <tr><td class="paramname">strenth</td><td>must be 2, 4, 6 or 8. Other values are treated like 2. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="af73a0a672c491dd5b3a0c30207f1bcae" name="af73a0a672c491dd5b3a0c30207f1bcae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af73a0a672c491dd5b3a0c30207f1bcae">&#9670;&#160;</a></span>setOutputsOff()</h2>
 
@@ -223,8 +283,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a11fb472be613d2230b9b007e6f7d927a" name="a11fb472be613d2230b9b007e6f7d927a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11fb472be613d2230b9b007e6f7d927a">&#9670;&#160;</a></span>setPllInputSource()</h2>
+<a id="a505914d0de591d086df8bba24ae6be5e" name="a505914d0de591d086df8bba24ae6be5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a505914d0de591d086df8bba24ae6be5e">&#9670;&#160;</a></span>setPllInputSource()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,17 +292,17 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void Si5351::setPllInputSource </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>inputDivider</em></span>, </td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>inputDivider</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>sourceB</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>sourceB</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>sourceA</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>sourceA</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
