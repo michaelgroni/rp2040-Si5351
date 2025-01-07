@@ -67,6 +67,24 @@ void Si5351::setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode,
     }
 }
 
+void Si5351::setPllParameters(const uint8_t pllIndex, uint32_t integer, uint32_t numerator, uint32_t denominator)
+{
+    uint8_t data[9] = {26, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    if (pllIndex == 1) // PLL b
+    {
+        data[0] = 34;
+    }
+
+    integer     &= 0x0003FFFF; // 18 bits
+    numerator   &= 0x000FFFFF; // 20 bits
+    denominator &= 0x000FFFFF; // 20 bits
+
+    // *** hier weitermachen ***
+
+
+}
+
 void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
 {
     uint8_t data[3] = {24, 0x00, 0x00};

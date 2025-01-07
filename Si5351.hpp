@@ -55,6 +55,15 @@ public:
     void setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength);
 
     /**
+     * @brief Sets the PLL dividers.
+     * @param pllIndex must be 0 (PLL A) or 1 (PLL B). Other values are treated like 0.
+     * @param integer is an unsigned 18-bit-number.
+     * @param numerator is an unsigned 20-bit-number.
+     * @param denominator is an unsigned 20-bit-number.
+     */
+    void setPllParameters(const uint8_t pllIndex, uint32_t integer, uint32_t numerator, uint32_t denominator);
+
+    /**
      * @brief Determins the state of a disabled output.
      * @param clkIndex must be between 0 and 7. Other values are treated like 0.
      * @param disState must be 0 (low), 1 (high), 2 (high Z) or 3 (never disabled). Higher bits are ignored.
