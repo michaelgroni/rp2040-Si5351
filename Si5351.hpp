@@ -76,10 +76,10 @@ public:
 
     /**
      * @brief Sets the PLL dividers.
-     * @param pllIndex must be 0 (PLL A) or 1 (PLL B). Other values are ignored.
-     * @param integer is an unsigned 18-bit-number.
-     * @param numerator is an unsigned 20-bit-number.
-     * @param denominator is an unsigned 20-bit-number.
+     * @param pll must be 'a' (PLL A) or 'b' (PLL B). Other values are ignored.
+     * @param integer is a in (a + b/c).
+     * @param numerator is b in (a + b/c).
+     * @param denominator is c in (a + b/c).
      */
-    void setPllParameters(const uint8_t pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator);
+    void setPllParameters(const char pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator);
 };

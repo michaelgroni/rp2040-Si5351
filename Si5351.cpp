@@ -2,6 +2,10 @@
 
 #include "pico/stdlib.h"
 
+#include <array>
+
+using namespace std;
+
 void Si5351::waitAfterPowerOn()
 {
     uint8_t siRegister = 0;
@@ -31,19 +35,19 @@ Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, dou
 
 void Si5351::disableInterrupts()
 {
-    uint8_t data[2] = {2, 0xF0};
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+    array<uint8_t, 2> data {2, 0xF0};
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
 void Si5351::disableOEBPin()
 {
-    uint8_t data[2] = {9, 0xFF};
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+    array<uint8_t, 2> data {9, 0xFF};
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
 void Si5351::setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength)
 {
-    uint8_t data[2] = {16, 0x00};
+    array<uint8_t, 2> data {16, 0x00};
 
     if (clkIndex <= 7) data[0] += clkIndex;
 
@@ -65,11 +69,13 @@ void Si5351::setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode,
             data[1] = 0x01;
             break;
     }
+
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
 void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
 {
-    uint8_t data[3] = {24, 0x00, 0x00};
+    array<uint8_t, 3> data {24, 0x00, 0x00};
 
     if (clkIndex > 7) clkIndex = 0;
 
@@ -81,8 +87,8 @@ void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
     uint8_t dataLow = (uint8_t) dataMask;
     uint8_t dataHigh = (uint8_t) (dataMask >> 8);
 
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 1, false);
-    i2c_read_blocking(I2C_PORT, I2C_ADDR, data+1, 2, false);
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), 1, false);
+    i2c_read_blocking(I2C_PORT, I2C_ADDR, data.data()+1, 2, false);
 
     data[1] &= deleteLow;
     data[2] &= deleteHigh;
@@ -90,26 +96,26 @@ void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
     data[1] += dataLow;
     data[2] += dataHigh;
 
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 3, false);
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
 void Si5351::setOutputsOff()
 {
     // off
-    uint8_t data[2] = {3, 0xFF};
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+    array<uint8_t, 2> data {3, 0xFF};
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 
     // power down
     data[1] = 0x8C;
     for (data[0] = 16; data[0] <= 23; data[0]++)
     {
-        i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+        i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
     }
 }
 
 void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0)
 {
-    uint8_t data[2] = {15, 0x00};
+    array<uint8_t, 2> data {15, 0x00};
 
     switch(inputDivider)
     {
@@ -127,19 +133,19 @@ void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB
             data[1] = 0x00;
     }
 
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
-void Si5351::setPllParameters(const uint8_t pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator)
+void Si5351::setPllParameters(const char pll, const uint32_t integer, const uint32_t numerator, const uint32_t denominator)
 {
-    uint8_t data[9];
+    array<uint8_t, 9> data;
 
-    switch (pllIndex)
+    switch (pll)
     {
-        case 0:
+        case 'a':
             data[0] = 26; // PLL a
             break;
-        case 1:
+        case 'b':
             data[0] = 34; // PLL b
             break;
         default:
@@ -158,4 +164,6 @@ void Si5351::setPllParameters(const uint8_t pllIndex, const uint32_t integer, co
     data[6] = ((p3 >> 16) << 4) | (p2 >> 16);   // register 31 or 39
     data[7] = p2 >> 8;                          // register 32 or 40
     data[8]= p2;                                // register 33 or 41
+
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
 }
