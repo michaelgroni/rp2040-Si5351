@@ -13,6 +13,14 @@ array<uint32_t, 3> Si5351::dividerParameters(const uint a, const uint b, const u
     return p;
 }
 
+uint8_t Si5351::readByte(uint8_t reg) const
+{
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, &reg, 1, false);
+    uint8_t data;
+    i2c_read_blocking(I2C_PORT, I2C_ADDR, &data, 1, false);
+    return data;        
+}
+
 array<uint8_t, 9> Si5351::registerContent(const uint8_t address, const std::array<uint32_t, 3> &p) const
 {
     array<uint8_t, 9> data;
@@ -33,14 +41,6 @@ array<uint8_t, 9> Si5351::registerContent(const uint8_t address, const uint a, c
     return registerContent(address, dividerParameters(a, b, c));
 }
 
-uint8_t Si5351::readByte(uint8_t reg)
-{
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, &reg, 1, false);
-    uint8_t data;
-    i2c_read_blocking(I2C_PORT, I2C_ADDR, &data, 1, false);
-    return data;        
-}
-
 void Si5351::waitAfterPowerOn()
 {
     uint8_t siRegister = 0;
@@ -51,8 +51,8 @@ void Si5351::waitAfterPowerOn()
     } while ((siData & 0x88) != 0);
 }
 
-Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, double xtalFreq)
-    : I2C_PORT(I2C_PORT), I2C_ADDR(i2cAddr), SDA(sda), SCL(scl), XTAL_FREQ(xtalFreq)
+Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, const uint8_t cLoad = 10)
+    : I2C_PORT(I2C_PORT), I2C_ADDR(i2cAddr), SDA(sda), SCL(scl)
 {
     waitAfterPowerOn();
     setOutputsOff();
@@ -74,6 +74,33 @@ void Si5351::disableInterrupts()
 void Si5351::disableOEBPin()
 {
     array<uint8_t, 2> data {9, 0xFF};
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
+}
+
+void Si5351::resetPll(const char pll) const
+{
+    array<uint8_t, 2> data {177, 0};
+
+    switch (pll)
+    {
+        case 'a':
+            data.at(1) = 0x80;
+            break;
+        case 'b':
+            data.at(1) = 0x20;
+            break;
+        default:
+            return;
+    }
+
+    data.at(1) |= readByte(177);
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
+}
+
+void Si5351::resetPll() const
+{
+    array<uint8_t, 2> data {177, 0};
+    uint8_t data.at(1) = 0xA0 | readByte(177);
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
