@@ -14,12 +14,31 @@ private:
     const double XTAL_FREQ;
 
     /**
-     * @brief Returns a fractional pll or multisynth divider prepared for the Si5351 registers.
+     * @brief Returns a fractional pll or multisynth divider prepared for the Si5351.
      * @param a is the integer part.
      * @param b is the numerator.
      * @param c is the denominator.
      */
-    std::array<uint32_t, 3> dividerParameters(uint a, uint b, uint c);
+    std::array<uint32_t, 3> dividerParameters(const uint a, const uint b, const uint c) const; 
+
+    /**
+     * @brief Returns register contents calculated from divider parameters.
+     * @param address is the adress of the first register to be written.
+     * @param p is the return value of dividerParameters(...).
+     * @return An array with the address of the first register, for example 0x42, followed by the calculated content.
+     */
+    std::array<uint8_t, 9> registerContent(const uint8_t address, const std::array<uint32_t, 3> &p) const;
+
+    /**
+     * @brief Convenience method that calls `registerContent(address, p)` and `dividerParameters(a, b, c)`
+     * `registerContent(address, a, b, c)` ist the same as `registerContent(address, dividerParameters(a, b, c))`
+     * @param address is the adress of the first register to be written.
+     * @param a is the integer part.
+     * @param b is the numerator.
+     * @param c is the denominator.
+     * @return An array with the address of the first register, for example 0x42, followed by the calculated content.
+     */
+    std::array<uint8_t, 9> registerContent(const uint8_t address, const uint a, const uint b, const uint c) const;
 
     /**
      * @brief Reads a single byte from the Si5351 blocking.
@@ -44,14 +63,25 @@ public:
     Si5351(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, double xtalFreq = 25000000);
 
     /**
-     * Disables the interrupt pin.
+     * @brief Disables the interrupt pin.
      */
     void disableInterrupts();
 
     /**
-     * Disables the OEB pin.
+     * @brief Disables the OEB pin.
     */
     void disableOEBPin();
+
+    /**
+     * @brief Resets PLLA oder PLLB.
+     * @param pll must be 'a' or 'b'. Other values are ignored.
+     */
+    void resetPll(const char pll) const;
+
+    /**
+     * @brief Resets PLLA and PLLB.
+     */
+    void resetPll() const;
 
     /**
      * @param clkIndex must be between 0 and 7. Other values are treated like 0.
@@ -72,15 +102,19 @@ public:
     void setOutputDisableState(uint8_t clkIndex, const uint8_t disState);
 
     /**
+     * @brief Configures the multisynth divider 0, 1, 2, 3, 4 or 5.
+     * @param multisynth must be 0, 1, 2, 3, 4 or 5. Other values are ignored.
+     * @param integer is a in (a + b/c).
+     * @param numr is b in (a + b/c).
+     * @param denom is c in (a + b/c).
+     * @param const uint8_t outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
+     */
+    void setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 0) const;
+
+    /**
      * @brief Disables all output drivers and powers them down.
      */
     void setOutputsOff();
-
-    /**
-     * @brief Configures the multisynth divider 0, 1, 2, 3, 4 or 5.
-     * @param multisynth must be 0, 1, 2, 3, 4 or 5. Other values are ignored.
-     */
-    void setMultisynth0to5parameters(const uint8_t multisynth);
 
     /**
      * @brief Sets the clock input divider.

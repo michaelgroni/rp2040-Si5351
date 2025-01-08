@@ -4,13 +4,33 @@
 
 using namespace std;
 
-array<uint32_t, 3> Si5351::dividerParameters(uint a, uint b, uint c)
+array<uint32_t, 3> Si5351::dividerParameters(const uint a, const uint b, const uint c) const
 {
     array<uint32_t, 3> p;
     p[0] = 128 * a + (128 * b / c) - 512; // 18 bits
     p[1] = 128 * b - c * (128 * b / c);   // 20 bits
     p[2] = c;                             // 20 bits
     return p;
+}
+
+array<uint8_t, 9> Si5351::registerContent(const uint8_t address, const std::array<uint32_t, 3> &p) const
+{
+    array<uint8_t, 9> data;
+    data.at(0) = address;
+    data[1] = p.at(2) >> 8;                            
+    data[2] = p.at(2);                              
+    data[3] = p.at(0) >> 16;                          
+    data[4] = p.at(0) >> 8;                           
+    data[5] = p.at(0);                                
+    data[6] = ((p.at(2) >> 16) << 4) | (p.at(1) >> 16);
+    data[7] = p.at(1) >> 8;                             
+    data[8] = p.at(1);                                
+    return data;
+}
+
+array<uint8_t, 9> Si5351::registerContent(const uint8_t address, const uint a, const uint b, const uint c) const
+{
+    return registerContent(address, dividerParameters(a, b, c));
 }
 
 uint8_t Si5351::readByte(uint8_t reg)
@@ -38,6 +58,11 @@ Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, dou
     setOutputsOff();
     disableInterrupts();
     disableOEBPin();
+    
+    // disable spread spectrum (might be supported in coming releases)
+    uint8_t register149 = readByte(149);
+    register149 |= 0x7F;
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, &register149, 1, false);
 }
 
 void Si5351::disableInterrupts()
@@ -106,6 +131,28 @@ void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
+void Si5351::setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 0) const
+{    
+    uint8_t address; // first register to be written
+
+    if (multisynth > 5)
+    {
+        return;
+    }
+    else
+    {
+        address = 42 + multisynth * 8;
+    }
+
+    auto data = registerContent(address, integer, num, denom);
+
+    outDiv &= 0x07; // ignore bits left of 2^2
+    outDiv << 4;    // shift to the correct position
+    data.at(2) |= outDiv;
+
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
+}
+
 void Si5351::setOutputsOff()
 {
     // off
@@ -145,30 +192,20 @@ void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB
 
 void Si5351::setPllParameters(const char pll, const uint32_t integer, const uint32_t numerator, const uint32_t denominator)
 {
-    array<uint8_t, 9> data;
+    uint8_t address; // first register to be written
 
     switch (pll)
     {
         case 'a':
-            data[0] = 26; // PLL a
+            address = 26; // PLL a
             break;
         case 'b':
-            data[0] = 34; // PLL b
+            address = 34; // PLL b
             break;
         default:
             return;
     }
 
-    const auto p = dividerParameters(integer, numerator, denominator);
-
-    data[1] = p.at(2) >> 8;                          // register 26 or 34
-    data[2] = p.at(2);                               // register 27 or 35
-    data[3] = p.at(0) >> 16;                         // register 28 or 36 
-    data[4] = p.at(0) >> 8;                          // register 29 or 37
-    data[5] = p.at(0);                               // register 30 or 38
-    data[6] = ((p.at(2) >> 16) << 4) | (p.at(1) >> 16);   // register 31 or 39
-    data[7] = p.at(1) >> 8;                          // register 32 or 40
-    data[8]= p.at(1);                                // register 33 or 41
-
+    const auto data = registerContent(address, integer, numerator, denominator);
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
 }
