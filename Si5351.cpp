@@ -67,36 +67,6 @@ void Si5351::setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode,
     }
 }
 
-void Si5351::setPllParameters(const uint8_t pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator)
-{
-    uint8_t data[9];
-
-    switch (pllIndex)
-    {
-        case 0:
-            data[0] = 26; // PLL a
-            break;
-        case 1:
-            data[0] = 34; // PLL b
-            break;
-        default:
-            return;
-    }
-
-    const uint32_t p1 = 128 * integer + (128 * numerator / denominator) - 512;              // 18 bits
-    const uint32_t p2 = 128 * numerator - denominator * (128 * numerator / denominator);    // 20 bits
-    const uint32_t p3 = denominator;                                                        // 20 bits
-
-    data[1] = p3 >> 8;                          // register 26 or 34
-    data[2] = p3;                               // register 27 or 35
-    data[3] = p1 >> 16;                         // register 28 or 36 
-    data[4] = p1 >> 8;                          // register 29 or 37
-    data[5] = p1;                               // register 30 or 38
-    data[6] = ((p3 >> 16) << 4) | (p2 >> 16);   // register 31 or 39
-    data[7] = p2 >> 8;                          // register 32 or 40
-    data[8]= p2;                                // register 33 or 41
-}
-
 void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
 {
     uint8_t data[3] = {24, 0x00, 0x00};
@@ -158,4 +128,34 @@ void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB
     }
 
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data, 2, false);
+}
+
+void Si5351::setPllParameters(const uint8_t pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator)
+{
+    uint8_t data[9];
+
+    switch (pllIndex)
+    {
+        case 0:
+            data[0] = 26; // PLL a
+            break;
+        case 1:
+            data[0] = 34; // PLL b
+            break;
+        default:
+            return;
+    }
+
+    const uint32_t p1 = 128 * integer + (128 * numerator / denominator) - 512;              // 18 bits
+    const uint32_t p2 = 128 * numerator - denominator * (128 * numerator / denominator);    // 20 bits
+    const uint32_t p3 = denominator;                                                        // 20 bits
+
+    data[1] = p3 >> 8;                          // register 26 or 34
+    data[2] = p3;                               // register 27 or 35
+    data[3] = p1 >> 16;                         // register 28 or 36 
+    data[4] = p1 >> 8;                          // register 29 or 37
+    data[5] = p1;                               // register 30 or 38
+    data[6] = ((p3 >> 16) << 4) | (p2 >> 16);   // register 31 or 39
+    data[7] = p2 >> 8;                          // register 32 or 40
+    data[8]= p2;                                // register 33 or 41
 }
