@@ -3,3 +3,5 @@
 - Fully support chip variants B and C.
 - Add Multisynth6 and Multisynth7.
 - Support spread spectrum.
+- Support phase offset.
+- Enable fanout.
