@@ -2,6 +2,8 @@
 
 #include "hardware/i2c.h"
 
+#include <array>
+
 class Si5351
 {
 private:
@@ -12,16 +14,24 @@ private:
     const double XTAL_FREQ;
 
     /**
-     * @brief Blocks until Si5351 is intialized and CLKIN is valid
+     * @brief Returns a fractional pll or multisynth divider prepared for the Si5351 registers.
+     * @param a is the integer part.
+     * @param b is the numerator.
+     * @param c is the denominator.
      */
-    void waitAfterPowerOn();
+    std::array<uint32_t, 3> dividerParameters(uint a, uint b, uint c);
 
     /**
-     * @brief Reads a single byte blocking.
+     * @brief Reads a single byte from the Si5351 blocking.
      * @param reg ist the register to read from.
      * 
      */
     uint8_t readByte(uint8_t register);
+    
+    /**
+     * @brief Blocks until Si5351 is intialized and CLKIN is valid
+     */
+    void waitAfterPowerOn();
 
 public:
     /**
@@ -67,6 +77,12 @@ public:
     void setOutputsOff();
 
     /**
+     * @brief Configures the multisynth divider 0, 1, 2, 3, 4 or 5.
+     * @param multisynth must be 0, 1, 2, 3, 4 or 5. Other values are ignored.
+     */
+    void setMultisynth0to5parameters(const uint8_t multisynth);
+
+    /**
      * @brief Sets the clock input divider.
      * The parameters for the pll sources are ignored because
      * at the moment only the Si5351A ist supported.
@@ -81,5 +97,5 @@ public:
      * @param numerator is b in (a + b/c).
      * @param denominator is c in (a + b/c).
      */
-    void setPllParameters(const char pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator);
+    void setPllParameters(const char pll, const uint32_t integer, const uint32_t numerator, const uint32_t denominator);
 };

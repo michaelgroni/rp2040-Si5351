@@ -2,9 +2,24 @@
 
 #include "pico/stdlib.h"
 
-#include <array>
-
 using namespace std;
+
+array<uint32_t, 3> Si5351::dividerParameters(uint a, uint b, uint c)
+{
+    array<uint32_t, 3> p;
+    p[0] = 128 * a + (128 * b / c) - 512; // 18 bits
+    p[1] = 128 * b - c * (128 * b / c);   // 20 bits
+    p[2] = c;                             // 20 bits
+    return p;
+}
+
+uint8_t Si5351::readByte(uint8_t reg)
+{
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, &reg, 1, false);
+    uint8_t data;
+    i2c_read_blocking(I2C_PORT, I2C_ADDR, &data, 1, false);
+    return data;        
+}
 
 void Si5351::waitAfterPowerOn()
 {
@@ -14,14 +29,6 @@ void Si5351::waitAfterPowerOn()
     {
         siData = readByte(0);
     } while ((siData & 0x88) != 0);
-}
-
-uint8_t Si5351::readByte(uint8_t reg)
-{
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, &reg, 1, false);
-    uint8_t data;
-    i2c_read_blocking(I2C_PORT, I2C_ADDR, &data, 1, false);
-    return data;        
 }
 
 Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, double xtalFreq)
@@ -152,18 +159,16 @@ void Si5351::setPllParameters(const char pll, const uint32_t integer, const uint
             return;
     }
 
-    const uint32_t p1 = 128 * integer + (128 * numerator / denominator) - 512;              // 18 bits
-    const uint32_t p2 = 128 * numerator - denominator * (128 * numerator / denominator);    // 20 bits
-    const uint32_t p3 = denominator;                                                        // 20 bits
+    const auto p = dividerParameters(integer, numerator, denominator);
 
-    data[1] = p3 >> 8;                          // register 26 or 34
-    data[2] = p3;                               // register 27 or 35
-    data[3] = p1 >> 16;                         // register 28 or 36 
-    data[4] = p1 >> 8;                          // register 29 or 37
-    data[5] = p1;                               // register 30 or 38
-    data[6] = ((p3 >> 16) << 4) | (p2 >> 16);   // register 31 or 39
-    data[7] = p2 >> 8;                          // register 32 or 40
-    data[8]= p2;                                // register 33 or 41
+    data[1] = p.at(2) >> 8;                          // register 26 or 34
+    data[2] = p.at(2);                               // register 27 or 35
+    data[3] = p.at(0) >> 16;                         // register 28 or 36 
+    data[4] = p.at(0) >> 8;                          // register 29 or 37
+    data[5] = p.at(0);                               // register 30 or 38
+    data[6] = ((p.at(2) >> 16) << 4) | (p.at(1) >> 16);   // register 31 or 39
+    data[7] = p.at(1) >> 8;                          // register 32 or 40
+    data[8]= p.at(1);                                // register 33 or 41
 
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
 }
