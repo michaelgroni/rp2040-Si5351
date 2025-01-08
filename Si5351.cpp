@@ -41,6 +41,22 @@ array<uint8_t, 9> Si5351::registerContent(const uint8_t address, const uint a, c
     return registerContent(address, dividerParameters(a, b, c));
 }
 
+void Si5351::setChrystalLoadCapacitance(uint8_t cLoad)
+{
+    array<uint8_t, 2> data {183, 0xD2}; // default value 10 pF
+
+    if (cLoad == 6) // 6 pF
+    {
+        data.at(1) &= 0x7F;
+    }
+    else if (cLoad == 8) // 8 pF
+    {
+        data.at(1) &= 0xBF;
+    }
+
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);    
+}
+
 void Si5351::waitAfterPowerOn()
 {
     uint8_t siRegister = 0;
@@ -58,6 +74,7 @@ Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, con
     setOutputsOff();
     disableInterrupts();
     disableOEBPin();
+    setChrystalLoadCapacitance(cLoad);
     
     // disable spread spectrum (might be supported in coming releases)
     uint8_t register149 = readByte(149);

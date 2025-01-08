@@ -11,7 +11,6 @@ private:
     const uint8_t I2C_ADDR;
     const uint8_t SDA;
     const uint8_t SCL; 
-    const double XTAL_FREQ;
 
     /**
      * @brief Returns a fractional pll or multisynth divider prepared for the Si5351.
@@ -27,6 +26,14 @@ private:
      * @param p is the return value of dividerParameters(...).
      * @return An array with the address of the first register, for example 0x42, followed by the calculated content.
      */
+    
+    /**
+     * @brief Reads a single byte from the Si5351 blocking.
+     * @param reg ist the register to read from.
+     * 
+     */
+    uint8_t readByte(uint8_t register) const;
+    
     std::array<uint8_t, 9> registerContent(const uint8_t address, const std::array<uint32_t, 3> &p) const;
 
     /**
@@ -39,13 +46,13 @@ private:
      * @return An array with the address of the first register, for example 0x42, followed by the calculated content.
      */
     std::array<uint8_t, 9> registerContent(const uint8_t address, const uint a, const uint b, const uint c) const;
-
+    
     /**
-     * @brief Reads a single byte from the Si5351 blocking.
-     * @param reg ist the register to read from.
-     * 
+     * @brief Sets the crystal internal load capacitance.
+     * @param cLoad is the capacitance in pF and must bei 6, 8 or 10. Other values are treated as 10. 
+     *
      */
-    uint8_t readByte(uint8_t register);
+    void setChrystalLoadCapacitance(uint8_t cLoad);
     
     /**
      * @brief Blocks until Si5351 is intialized and CLKIN is valid
@@ -58,9 +65,9 @@ public:
      * @param i2cAddr is the I2C address.
      * @param sda is a GPIO pin that can be used as SDA with `i2cPort`, for example `0`.
      * @param scl is a GPIO pin that can be used as SCL with `i2cPort`, for example `1`.
-     * @param xtalFreq is the crystal frequency in Hz.
+     * @param cLoad is the crystal cnternal coad capacitance in pF and must bei 6, 8 or 10. Other values are treated as 10.
      */
-    Si5351(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, double xtalFreq = 25000000);
+    Si5351(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, const uint8_t cLoad = 10);
 
     /**
      * @brief Disables the interrupt pin.
@@ -73,7 +80,7 @@ public:
     void disableOEBPin();
 
     /**
-     * @brief Resets PLLA oder PLLB.
+     * @brief Resets PLLA or PLLB.
      * @param pll must be 'a' or 'b'. Other values are ignored.
      */
     void resetPll(const char pll) const;
