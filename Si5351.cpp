@@ -67,22 +67,34 @@ void Si5351::setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode,
     }
 }
 
-void Si5351::setPllParameters(const uint8_t pllIndex, uint32_t integer, uint32_t numerator, uint32_t denominator)
+void Si5351::setPllParameters(const uint8_t pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator)
 {
-    uint8_t data[9] = {26, 0, 0, 0, 0, 0, 0, 0, 0};
+    uint8_t data[9];
 
-    if (pllIndex == 1) // PLL b
+    switch (pllIndex)
     {
-        data[0] = 34;
+        case 0:
+            data[0] = 26; // PLL a
+            break;
+        case 1:
+            data[0] = 34; // PLL b
+            break;
+        default:
+            return;
     }
 
-    integer     &= 0x0003FFFF; // 18 bits
-    numerator   &= 0x000FFFFF; // 20 bits
-    denominator &= 0x000FFFFF; // 20 bits
+    const uint32_t p1 = 128 * integer + (128 * numerator / denominator) - 512;              // 18 bits
+    const uint32_t p2 = 128 * numerator - denominator * (128 * numerator / denominator);    // 20 bits
+    const uint32_t p3 = denominator;                                                        // 20 bits
 
-    // *** hier weitermachen ***
-
-
+    data[1] = p3 >> 8;                          // register 26 or 34
+    data[2] = p3;                               // register 27 or 35
+    data[3] = p1 >> 16;                         // register 28 or 36 
+    data[4] = p1 >> 8;                          // register 29 or 37
+    data[5] = p1;                               // register 30 or 38
+    data[6] = ((p3 >> 16) << 4) | (p2 >> 16);   // register 31 or 39
+    data[7] = p2 >> 8;                          // register 32 or 40
+    data[8]= p2;                                // register 33 or 41
 }
 
 void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)

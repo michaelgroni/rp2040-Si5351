@@ -56,12 +56,12 @@ public:
 
     /**
      * @brief Sets the PLL dividers.
-     * @param pllIndex must be 0 (PLL A) or 1 (PLL B). Other values are treated like 0.
+     * @param pllIndex must be 0 (PLL A) or 1 (PLL B). Other values are ignored.
      * @param integer is an unsigned 18-bit-number.
      * @param numerator is an unsigned 20-bit-number.
      * @param denominator is an unsigned 20-bit-number.
      */
-    void setPllParameters(const uint8_t pllIndex, uint32_t integer, uint32_t numerator, uint32_t denominator);
+    void setPllParameters(const uint8_t pllIndex, const uint32_t integer, const uint32_t numerator, const uint32_t denominator);
 
     /**
      * @brief Determins the state of a disabled output.
