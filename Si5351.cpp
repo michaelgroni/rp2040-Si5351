@@ -117,7 +117,7 @@ void Si5351::resetPll(const char pll) const
 void Si5351::resetPll() const
 {
     array<uint8_t, 2> data {177, 0};
-    uint8_t data.at(1) = 0xA0 | readByte(177);
+    data.at(1) = 0xA0 | readByte(177);
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 

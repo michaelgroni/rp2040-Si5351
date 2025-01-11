@@ -65,7 +65,7 @@ public:
      * @param i2cAddr is the I2C address.
      * @param sda is a GPIO pin that can be used as SDA with `i2cPort`, for example `0`.
      * @param scl is a GPIO pin that can be used as SCL with `i2cPort`, for example `1`.
-     * @param cLoad is the crystal cnternal coad capacitance in pF and must bei 6, 8 or 10. Other values are treated as 10.
+     * @param cLoad is the crystal cnternal load capacitance in pF and must bei 6, 8 or 10. Other values are treated as 10.
      */
     Si5351(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, const uint8_t cLoad = 10);
 
@@ -114,7 +114,7 @@ public:
      * @param integer is a in (a + b/c).
      * @param numr is b in (a + b/c).
      * @param denom is c in (a + b/c).
-     * @param const uint8_t outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
+     * @param outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
      */
     void setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 0) const;
 

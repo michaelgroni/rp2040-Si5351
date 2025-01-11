@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "dimrst",
   1: "s",
   2: "mrs",
-  3: "dms",
+  3: "dmrs",
   4: "i",
   5: "dt"
 };
