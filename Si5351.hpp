@@ -7,7 +7,7 @@
 class Si5351
 {
 private:
-    i2c_inst* I2C_PORT;
+    i2c_inst_t* I2C_PORT;
     const uint8_t I2C_ADDR;
     const uint8_t SDA;
     const uint8_t SCL; 
@@ -32,7 +32,7 @@ private:
      * @param reg ist the register to read from.
      * 
      */
-    uint8_t readByte(uint8_t register) const;
+    uint8_t readByte(uint8_t reg) const;
     
     std::array<uint8_t, 9> registerContent(const uint8_t address, const std::array<uint32_t, 3> &p) const;
 
@@ -67,7 +67,7 @@ public:
      * @param scl is a GPIO pin that can be used as SCL with `i2cPort`, for example `1`.
      * @param cLoad is the crystal cnternal load capacitance in pF and must bei 6, 8 or 10. Other values are treated as 10.
      */
-    Si5351(i2c_inst* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, const uint8_t cLoad = 10);
+    Si5351(i2c_inst_t* i2cPort = i2c0, uint8_t i2cAddr = 0x60, uint8_t sda = 0, uint8_t scl = 1, const uint8_t cLoad = 10);
 
     /**
      * @brief Disables the interrupt pin.
@@ -112,7 +112,7 @@ public:
      * @brief Configures the multisynth divider 0, 1, 2, 3, 4 or 5.
      * @param multisynth must be 0, 1, 2, 3, 4 or 5. Other values are ignored.
      * @param integer is a in (a + b/c).
-     * @param numr is b in (a + b/c).
+     * @param num is b in (a + b/c).
      * @param denom is c in (a + b/c).
      * @param outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
      */
@@ -125,9 +125,9 @@ public:
 
     /**
      * @brief Sets the clock input divider.
-     * The parameters for the pll sources are ignored because
-     * at the moment only the Si5351A ist supported.
      * @param inputDivider must be 1, 2, 4 or 8. Other values are treated like 1.
+     * @param sourceB is ignored becauseat the moment only the Si5351A ist fully supported.
+     * @param sourcea is ignored becauseat the moment only the Si5351A ist fully supported.
      */
     void setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0);
 
