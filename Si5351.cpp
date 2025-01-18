@@ -15,9 +15,9 @@ array<uint32_t, 3> Si5351::dividerParameters(const uint a, const uint b, const u
 
 uint8_t Si5351::readByte(uint8_t reg) const
 {
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, &reg, 1, false);
-    uint8_t data;
-    i2c_read_blocking(I2C_PORT, I2C_ADDR, &data, 1, false);
+    uint8_t data = reg;
+    i2c_write_blocking(this->I2C_PORT, I2C_ADDR, &data, 1, false);
+    i2c_read_blocking(this->I2C_PORT, I2C_ADDR, &data, 1, false);
     return data;        
 }
 
@@ -68,7 +68,7 @@ void Si5351::waitAfterPowerOn()
 }
 
 Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, const uint8_t cLoad)
-    : I2C_PORT(I2C_PORT), I2C_ADDR(i2cAddr)
+: I2C_PORT(I2C_PORT), I2C_ADDR(i2cAddr)
 {
     waitAfterPowerOn();
     setOutputsOff();

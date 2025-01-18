@@ -7,7 +7,7 @@
 class Si5351
 {
 private:
-    i2c_inst* I2C_PORT;
+    i2c_inst_t* I2C_PORT;
     const uint8_t I2C_ADDR;
     const uint8_t SDA;
     const uint8_t SCL; 
@@ -110,7 +110,7 @@ public:
      * @brief Configures the multisynth divider 0, 1, 2, 3, 4 or 5.
      * @param multisynth must be 0, 1, 2, 3, 4 or 5. Other values are ignored.
      * @param integer is a in (a + b/c).
-     * @param numr is b in (a + b/c).
+     * @param num is b in (a + b/c).
      * @param denom is c in (a + b/c).
      * @param outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
      */
@@ -123,9 +123,9 @@ public:
 
     /**
      * @brief Sets the clock input divider.
-     * The parameters for the pll sources are ignored because
-     * at the moment only the Si5351A ist supported.
      * @param inputDivider must be 1, 2, 4 or 8. Other values are treated like 1.
+     * @param sourceB is ignored becauseat the moment only the Si5351A ist fully supported.
+     * @param sourcea is ignored becauseat the moment only the Si5351A ist fully supported.
      */
     void setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0);
 
