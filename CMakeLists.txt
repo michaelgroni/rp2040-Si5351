@@ -53,7 +53,7 @@ target_include_directories(rp2040-Si5351 PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
 )
 
-add_library(Si5151 Si5151.cpp)
+add_library(Si5351 Si5351.cpp)
 target_link_libraries(Si5351 pico_stdlib hardware_i2c)
 
 # Add any user requested libraries

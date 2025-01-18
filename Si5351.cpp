@@ -1,4 +1,4 @@
-#include <Si5351.hpp>
+#include "Si5351.hpp"
 
 #include "pico/stdlib.h"
 
@@ -67,8 +67,8 @@ void Si5351::waitAfterPowerOn()
     } while ((siData & 0x88) != 0);
 }
 
-Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, uint8_t sda, uint8_t scl, const uint8_t cLoad = 10)
-    : I2C_PORT(I2C_PORT), I2C_ADDR(i2cAddr), SDA(sda), SCL(scl)
+Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, const uint8_t cLoad)
+    : I2C_PORT(I2C_PORT), I2C_ADDR(i2cAddr)
 {
     waitAfterPowerOn();
     setOutputsOff();
@@ -175,7 +175,7 @@ void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
-void Si5351::setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 0) const
+void Si5351::setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv) const
 {    
     uint8_t address; // first register to be written
 
@@ -211,7 +211,7 @@ void Si5351::setOutputsOff()
     }
 }
 
-void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0)
+void Si5351::setPllInputSource(const uint8_t inputDivider, const uint8_t sourceB, const uint8_t sourceA)
 {
     array<uint8_t, 2> data {15, 0x00};
 
