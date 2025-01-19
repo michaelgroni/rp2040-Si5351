@@ -149,6 +149,28 @@ void Si5351::setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode,
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
+void Si5351::setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv) const
+{    
+    uint8_t address; // first register to be written
+
+    if (multisynth > 5)
+    {
+        return;
+    }
+    else
+    {
+        address = 42 + multisynth * 8;
+    }
+
+    auto data = registerContent(address, integer, num, denom);
+
+    outDiv &= 0x07; // ignore bits left of 2^2
+    outDiv << 4;    // shift to the correct position
+    data.at(2) |= outDiv;
+
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
+}
+
 void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
 {
     array<uint8_t, 3> data {24, 0x00, 0x00};
@@ -175,26 +197,27 @@ void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
-void Si5351::setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv) const
-{    
-    uint8_t address; // first register to be written
+void Si5351::setOutput(const uint8_t clkIndex, const bool enabled)
+{
+    if (clkIndex > 7) return;
 
-    if (multisynth > 5)
+    uint8_t mask = 1 << clkIndex;
+    
+    array<uint8_t, 2> data {3, 0};
+    
+    data.at(1) = readByte(3);
+
+    if (enabled) // enable
     {
-        return;
+        data.at(1) &= !mask;
     }
-    else
+    else //disable
     {
-        address = 42 + multisynth * 8;
+        data.at(1) |= mask;
     }
 
-    auto data = registerContent(address, integer, num, denom);
-
-    outDiv &= 0x07; // ignore bits left of 2^2
-    outDiv << 4;    // shift to the correct position
-    data.at(2) |= outDiv;
-
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
+    
 }
 
 void Si5351::setOutputsOff()

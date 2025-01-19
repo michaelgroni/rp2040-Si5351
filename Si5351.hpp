@@ -98,13 +98,6 @@ public:
     void setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength);
 
     /**
-     * @brief Determins the state of a disabled output.
-     * @param clkIndex must be between 0 and 7. Other values are treated like 0.
-     * @param disState must be 0 (low), 1 (high), 2 (high Z) or 3 (never disabled). Higher bits are ignored.
-     */
-    void setOutputDisableState(uint8_t clkIndex, const uint8_t disState);
-
-    /**
      * @brief Configures the multisynth divider 0, 1, 2, 3, 4 or 5.
      * @param multisynth must be 0, 1, 2, 3, 4 or 5. Other values are ignored.
      * @param integer is a in (a + b/c).
@@ -113,6 +106,20 @@ public:
      * @param outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
      */
     void setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 1) const;
+
+    /**
+     * @brief Determins the state of a disabled output.
+     * @param clkIndex must be between 0 and 7. Other values are treated like 0.
+     * @param disState must be 0 (low), 1 (high), 2 (high Z) or 3 (never disabled). Higher bits are ignored.
+     */
+    void setOutputDisableState(uint8_t clkIndex, const uint8_t disState);
+
+    /**
+     * @brief Enables or disables a single output driver.
+     * @param clkIndex must bei 0, 1, 2, 3, 4, 5, 6 or 7. Other Values are ignored.
+     * @param enabled enables output `clkIndex` if true is given, otherwise disables it.
+     */
+    void setOutput(const uint8_t clkIndex, const bool enabled);
 
     /**
      * @brief Disables all output drivers and powers them down.
