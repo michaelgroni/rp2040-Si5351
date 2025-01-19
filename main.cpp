@@ -32,4 +32,10 @@ int main()
     si5351.setMultisynth0to5parameters(0, 90, 0, 2);
     si5351.resetPll();
     si5351.setClkControl(0, false, false, 0, false, 3, 8);
+    si5351.setOutput(0, true);
+
+    while (true)
+    {
+        sleep_ms(1000);
+    }
 }
