@@ -1,6 +1,6 @@
 var class_si5351 =
 [
-    [ "Si5351", "class_si5351.html#a0092fe1bd19e31e834f17ca8b4846ee7", null ],
+    [ "Si5351", "class_si5351.html#a947fff99065e6bf1cec64470d004a932", null ],
     [ "disableInterrupts", "class_si5351.html#ae6911f9c321a15473a9d77ca68ca9afb", null ],
     [ "disableOEBPin", "class_si5351.html#ac375b0cdf4ffe8fb5dc314085ce721a6", null ],
     [ "resetPll", "class_si5351.html#ac7c24ae5b9ca1124d804d2199dae684b", null ],

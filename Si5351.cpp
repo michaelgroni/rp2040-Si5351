@@ -68,7 +68,7 @@ void Si5351::waitAfterPowerOn()
 }
 
 Si5351::Si5351(i2c_inst *i2cPort, uint8_t i2cAddr, const uint8_t cLoad)
-: I2C_PORT(I2C_PORT), I2C_ADDR(i2cAddr)
+: I2C_PORT(i2cPort), I2C_ADDR(i2cAddr)
 {
     waitAfterPowerOn();
     setOutputsOff();

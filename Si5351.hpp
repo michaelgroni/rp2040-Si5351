@@ -9,8 +9,6 @@ class Si5351
 private:
     i2c_inst_t* I2C_PORT;
     const uint8_t I2C_ADDR;
-    const uint8_t SDA;
-    const uint8_t SCL; 
 
     /**
      * @brief Returns a fractional pll or multisynth divider prepared for the Si5351.
@@ -114,7 +112,7 @@ public:
      * @param denom is c in (a + b/c).
      * @param outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
      */
-    void setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 0) const;
+    void setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 1) const;
 
     /**
      * @brief Disables all output drivers and powers them down.
