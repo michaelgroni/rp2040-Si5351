@@ -11,20 +11,23 @@ private:
     const uint8_t I2C_ADDR;
 
     /**
+     * @brief Disables spread sprectrum.
+     */
+    void disableSpreadSpectrum() const;
+
+    /**
      * @brief Returns a fractional pll or multisynth divider prepared for the Si5351.
      * @param a is the integer part.
      * @param b is the numerator.
      * @param c is the denominator.
      */
     std::array<uint32_t, 3> dividerParameters(const uint a, const uint b, const uint c) const; 
-
-    /**
-     * @brief Returns register contents calculated from divider parameters.
-     * @param address is the adress of the first register to be written.
-     * @param p is the return value of dividerParameters(...).
-     * @return An array with the address of the first register, for example 0x42, followed by the calculated content.
-     */
     
+    /**
+     * @brief Enables fanout.
+     */
+    void enableFanout();
+
     /**
      * @brief Reads a single byte from the Si5351 blocking.
      * @param reg ist the register to read from.
@@ -32,6 +35,12 @@ private:
      */
     uint8_t readByte(uint8_t reg) const;
     
+     /**
+     * @brief Returns register contents calculated from divider parameters.
+     * @param address is the adress of the first register to be written.
+     * @param p is the return value of dividerParameters(...).
+     * @return An array with the address of the first register, for example 0x42, followed by the calculated content.
+     */   
     std::array<uint8_t, 9> registerContent(const uint8_t address, const std::array<uint32_t, 3> &p) const;
 
     /**
@@ -93,7 +102,7 @@ public:
      * @param inputSource must be 0 (PLLA) or 1 (PLLB on Si5351A/C or VCXO on Si5351B). Other values are treated like 0.
      * @param invert inverts the output clock if set to true.
      * @param outputSource must be 0 (XTAL) or 3 (multisynth). Other values are treated like 3.
-     * @param strenth must be 2, 4, 6 or 8. Other values are treated like 2.
+     * @param strength must be 2, 4, 6 or 8. Other values are treated like 2.
      */
     void setClkControl(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength);
 
@@ -105,7 +114,7 @@ public:
      * @param denom is c in (a + b/c).
      * @param outDiv must not be greater than 7. Higher Bits are ignored. The output divider is set to 2^´outDiv´.
      */
-    void setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 1) const;
+    void setMultisynth0to5parameters(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv = 0) const;
 
     /**
      * @brief Determins the state of a disabled output.
