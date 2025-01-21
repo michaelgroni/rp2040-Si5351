@@ -5,3 +5,4 @@
 - Support spread spectrum.
 - Support phase offset.
 - Enable fanout.
+- Support DIVBY4
