@@ -28,7 +28,7 @@ int main()
     Si5351 si5351;
     si5351.setClkControl(0, false, false, 0, false, 3, 8);
     si5351.setPllInputSource(1);
-    si5351.setPllParameters('a', 36, 0, 15);
+    si5351.setPllParameters('a', 36, 0, 1033);
     si5351.setMultisynth0to5parameters(0, 90, 0, 15);
     si5351.resetPll();
     si5351.setOutput(0, true);
