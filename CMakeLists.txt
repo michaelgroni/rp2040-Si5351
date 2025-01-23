@@ -59,10 +59,15 @@ target_link_libraries(ImproperFraction pico_stdlib)
 add_library(Si5351 Si5351.cpp)
 target_link_libraries(Si5351 pico_stdlib hardware_i2c)
 
+add_library(ADF4351 ADF4351.cpp)
+target_link_libraries(ADF4351 pico_stdlib hardware_spi)
+
 # Add any user requested libraries
 target_link_libraries(rp2040-Si5351 
-        hardware_i2c
+        hardware_i2c 
+        hardware_spi
         Si5351
+        ADF4351
         ImproperFraction
         )
 
