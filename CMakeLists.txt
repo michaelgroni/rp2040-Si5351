@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 19)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Initialise pico_sdk from installed location
@@ -53,6 +53,9 @@ target_include_directories(rp2040-Si5351 PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}
 )
 
+add_library(ImproperFraction ImproperFraction.cpp)
+target_link_libraries(ImproperFraction pico_stdlib)
+
 add_library(Si5351 Si5351.cpp)
 target_link_libraries(Si5351 pico_stdlib hardware_i2c)
 
@@ -60,6 +63,7 @@ target_link_libraries(Si5351 pico_stdlib hardware_i2c)
 target_link_libraries(rp2040-Si5351 
         hardware_i2c
         Si5351
+        ImproperFraction
         )
 
 
