@@ -3,11 +3,9 @@
 
 #include "Si5351.hpp"
 
-
 const auto I2C_PORT {i2c0};
 const uint8_t I2C_SDA {0};
 const uint8_t I2C_SCL {1};
-
 
 int main()
 {
