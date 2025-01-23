@@ -6,7 +6,7 @@ var NAVTREEINDEX0 =
 "annotated.html":[1,0],
 "class_si5351.html":[1,0,0],
 "class_si5351.html#a03bb50ec3f42d4cb8671b6ef73189403":[1,0,0,11],
-"class_si5351.html#a2bdf1ba644fad6327435208c42736dca":[1,0,0,6],
+"class_si5351.html#a1fe0ff9838f840ba409a3feea6e9da6e":[1,0,0,6],
 "class_si5351.html#a505914d0de591d086df8bba24ae6be5e":[1,0,0,10],
 "class_si5351.html#a6caf0ef289ef940ce437f336200ca42a":[1,0,0,4],
 "class_si5351.html#a947fff99065e6bf1cec64470d004a932":[1,0,0,0],

@@ -4,20 +4,16 @@
 
 #include "Si5351.hpp"
 
-// I2C defines
-// This example will use I2C0 on GPIO8 (SDA) and GPIO9 (SCL) running at 400KHz.
-// Pins can be changed, see the GPIO function select table in the datasheet for information on GPIO assignments
+
 const auto I2C_PORT {i2c0};
 const uint8_t I2C_SDA {0};
 const uint8_t I2C_SCL {1};
-
 
 
 int main()
 {
     stdio_init_all();
 
-    // I2C Initialisation. Using it at 400Khz.
     i2c_init(I2C_PORT, 400*1000);
     
     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);

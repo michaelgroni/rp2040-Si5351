@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>rp2040-Si5351: To do</title>
+<title>rp2040-Si5351: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('md__r_e_a_d_m_e.html',''); initResizable(true); });
+$(function(){initNavTree('class_si5351.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -95,21 +95,26 @@ $(function(){initNavTree('md__r_e_a_d_m_e.html',''); initResizable(true); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">To do</div></div>
+<div class="header">
+  <div class="headertitle"><div class="title">Si5351 Member List</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
-<ul>
-<li>Throw exceptions instead of using default values or ignoring values.</li>
-<li>Fully support chip variants B and C.</li>
-<li>Add Multisynth6 and Multisynth7.</li>
-<li>Support spread spectrum.</li>
-<li>Support phase offset.</li>
-<li>Enable fanout. </li>
-</ul>
-</div></div><!-- contents -->
-</div><!-- PageDoc -->
+
+<p>This is the complete list of members for <a class="el" href="class_si5351.html">Si5351</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="class_si5351.html#ae6911f9c321a15473a9d77ca68ca9afb">disableInterrupts</a>()</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_si5351.html#ac375b0cdf4ffe8fb5dc314085ce721a6">disableOEBPin</a>()</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_si5351.html#a6caf0ef289ef940ce437f336200ca42a">resetPll</a>(const char pll) const</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_si5351.html#ac7c24ae5b9ca1124d804d2199dae684b">resetPll</a>() const</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_si5351.html#aa9441a6eb45d277ec43c97d22f0b668b">setClkControl</a>(const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength)</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_si5351.html#a1fe0ff9838f840ba409a3feea6e9da6e">setMultisynth0to5parameters</a>(const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv=0) const</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_si5351.html#ad948bc0eaeacc9235d7bffb5c03c45f3">setOutput</a>(const uint8_t clkIndex, const bool enabled)</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_si5351.html#aa89c839353732d2820c65da8938c2a2c">setOutputDisableState</a>(uint8_t clkIndex, const uint8_t disState)</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_si5351.html#af73a0a672c491dd5b3a0c30207f1bcae">setOutputsOff</a>()</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_si5351.html#a505914d0de591d086df8bba24ae6be5e">setPllInputSource</a>(const uint8_t inputDivider, const uint8_t sourceB=0, const uint8_t sourceA=0)</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_si5351.html#a03bb50ec3f42d4cb8671b6ef73189403">setPllParameters</a>(const char pll, const uint32_t integer, const uint32_t numerator, const uint32_t denominator)</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_si5351.html#a947fff99065e6bf1cec64470d004a932">Si5351</a>(i2c_inst *i2cPort=i2c0, uint8_t i2cAddr=0x60, const uint8_t cLoad=10)</td><td class="entry"><a class="el" href="class_si5351.html">Si5351</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

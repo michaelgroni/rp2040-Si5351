@@ -123,9 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac7c24ae5b9ca1124d804d2199dae684b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9441a6eb45d277ec43c97d22f0b668b" id="r_aa9441a6eb45d277ec43c97d22f0b668b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9441a6eb45d277ec43c97d22f0b668b">setClkControl</a> (const uint8_t clkIndex, bool powerDown, bool intMode, uint8_t inputSource, bool invert, uint8_t outputSource, uint8_t strength)</td></tr>
 <tr class="separator:aa9441a6eb45d277ec43c97d22f0b668b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bdf1ba644fad6327435208c42736dca" id="r_a2bdf1ba644fad6327435208c42736dca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bdf1ba644fad6327435208c42736dca">setMultisynth0to5parameters</a> (const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv=1) const</td></tr>
-<tr class="memdesc:a2bdf1ba644fad6327435208c42736dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the multisynth divider 0, 1, 2, 3, 4 or 5.  <br /></td></tr>
-<tr class="separator:a2bdf1ba644fad6327435208c42736dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fe0ff9838f840ba409a3feea6e9da6e" id="r_a1fe0ff9838f840ba409a3feea6e9da6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fe0ff9838f840ba409a3feea6e9da6e">setMultisynth0to5parameters</a> (const uint8_t multisynth, const uint32_t integer, const uint32_t num, const uint32_t denom, uint8_t outDiv=0) const</td></tr>
+<tr class="memdesc:a1fe0ff9838f840ba409a3feea6e9da6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the multisynth divider 0, 1, 2, 3, 4 or 5.  <br /></td></tr>
+<tr class="separator:a1fe0ff9838f840ba409a3feea6e9da6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa89c839353732d2820c65da8938c2a2c" id="r_aa89c839353732d2820c65da8938c2a2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa89c839353732d2820c65da8938c2a2c">setOutputDisableState</a> (uint8_t clkIndex, const uint8_t disState)</td></tr>
 <tr class="memdesc:aa89c839353732d2820c65da8938c2a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determins the state of a disabled output.  <br /></td></tr>
 <tr class="separator:aa89c839353732d2820c65da8938c2a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -311,15 +311,15 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">inputSource</td><td>must be 0 (PLLA) or 1 (PLLB on Si5351A/C or VCXO on Si5351B). Other values are treated like 0. </td></tr>
     <tr><td class="paramname">invert</td><td>inverts the output clock if set to true. </td></tr>
     <tr><td class="paramname">outputSource</td><td>must be 0 (XTAL) or 3 (multisynth). Other values are treated like 3. </td></tr>
-    <tr><td class="paramname">strenth</td><td>must be 2, 4, 6 or 8. Other values are treated like 2. </td></tr>
+    <tr><td class="paramname">strength</td><td>must be 2, 4, 6 or 8. Other values are treated like 2. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a2bdf1ba644fad6327435208c42736dca" name="a2bdf1ba644fad6327435208c42736dca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bdf1ba644fad6327435208c42736dca">&#9670;&#160;</a></span>setMultisynth0to5parameters()</h2>
+<a id="a1fe0ff9838f840ba409a3feea6e9da6e" name="a1fe0ff9838f840ba409a3feea6e9da6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fe0ff9838f840ba409a3feea6e9da6e">&#9670;&#160;</a></span>setMultisynth0to5parameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,7 +347,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>outDiv</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>&#160;) const</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>outDiv</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;) const</td>
         </tr>
       </table>
 </div><div class="memdoc">
