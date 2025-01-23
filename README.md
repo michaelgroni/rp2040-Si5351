@@ -1,3 +1,7 @@
+The class is not quite finished yet. At the moment it supports most of the features of the Si5351A chip. Nevertheless, it should also be sufficient for many applications with the other variants.
+
+Contributions are welcome, preferably as commit requests.
+
 # Example
 ## In CMakeLists.txt
 ```c++
