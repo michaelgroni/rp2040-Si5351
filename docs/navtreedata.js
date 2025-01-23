@@ -25,7 +25,14 @@
 var NAVTREE =
 [
   [ "rp2040-Si5351", "index.html", [
-    [ "To do", "md__r_e_a_d_m_e.html", null ],
+    [ "README", "md_README.html", [
+      [ "Example", "md_README.html#autotoc_md0", [
+        [ "In CMakeLists.txt", "md_README.html#autotoc_md1", null ],
+        [ "Main", "md_README.html#autotoc_md2", null ]
+      ] ],
+      [ "Documentation", "md_README.html#autotoc_md3", null ],
+      [ "To do", "md_README.html#autotoc_md4", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -33,21 +40,13 @@ var NAVTREE =
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ]
       ] ]
-    ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ]
-      ] ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_si5351_8cpp.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

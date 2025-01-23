@@ -7,5 +7,5 @@ var searchData=
   ['setoutputsoff_4',['setOutputsOff',['../classSi5351.html#af73a0a672c491dd5b3a0c30207f1bcae',1,'Si5351']]],
   ['setpllinputsource_5',['setPllInputSource',['../classSi5351.html#a505914d0de591d086df8bba24ae6be5e',1,'Si5351']]],
   ['setpllparameters_6',['setPllParameters',['../classSi5351.html#a03bb50ec3f42d4cb8671b6ef73189403',1,'Si5351']]],
-  ['si5351_7',['Si5351',['../classSi5351.html#a947fff99065e6bf1cec64470d004a932',1,'Si5351']]]
+  ['si5351_7',['Si5351',['../classSi5351.html',1,'Si5351'],['../classSi5351.html#a947fff99065e6bf1cec64470d004a932',1,'Si5351::Si5351()']]]
 ];
