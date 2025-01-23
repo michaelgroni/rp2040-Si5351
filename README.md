@@ -43,6 +43,7 @@ int main()
 ```
 
 # Documentation
+There is an [API documentation](https://michaelgroni.github.io/rp2040-Si5351)
 It is strongly recommended to read the Si5351 datasheet as well as Application Note 219.
 
 # To do
