@@ -38,7 +38,7 @@ pico_sdk_init()
 add_executable(rp2040-Si5351 main.cpp )
 
 pico_set_program_name(rp2040-Si5351 "rp2040-Si5351")
-pico_set_program_version(rp2040-Si5351 "0.1")
+pico_set_program_version(rp2040-Si5351 "0.2")
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(rp2040-Si5351 0)
@@ -63,6 +63,4 @@ target_link_libraries(rp2040-Si5351
         )
 
 
-
 pico_add_extra_outputs(rp2040-Si5351)
-

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 
@@ -12,8 +11,6 @@ const uint8_t I2C_SCL {1};
 
 int main()
 {
-    stdio_init_all();
-
     i2c_init(I2C_PORT, 400*1000);
     
     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
@@ -24,13 +21,10 @@ int main()
     Si5351 si5351;
     si5351.setClkControl(0, false, false, 0, false, 3, 8);
     si5351.setPllInputSource(1);
-    si5351.setPllParameters('a', 36, 0, 1033);
+    si5351.setPllParameters('a', 35, 0, 1033);
     si5351.setMultisynth0to5parameters(0, 90, 0, 15);
     si5351.resetPll();
     si5351.setOutput(0, true);
 
-    while (true)
-    {
-        sleep_ms(1000);
-    }
+    return 0;
 }
