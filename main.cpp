@@ -11,8 +11,9 @@ const uint8_t I2C_SDA {0};
 const uint8_t I2C_SCL {1};
 
 const auto SPI_PORT = spi0;
-const uint8_t PLL_SPI_SCK = 6; // SCLK
-const uint8_t PLL_SPI_TX = 7;  // MOSI
+const uint8_t PLL_SPI_SCK = 2; // SCLK
+const uint8_t PLL_SPI_TX = 3;  // MOSI
+const uint8_t PLL_LE = 5;      // chip select
 
 
 int main()
@@ -33,10 +34,10 @@ int main()
     const uint32_t PFD_ADF = 100000; // int-Mode => PFD == step
     const uint8_t R_ADF = 100;
 
-    uint32_t frequency = 451600000;
+    uint32_t frequency = 451600050;
     uint32_t offsetADF = frequency % PFD_ADF;
     uint32_t frequencyADF = frequency - offsetADF;
-    uint16_t nADF = frequencyADF / PFD_ADF;
+    const uint16_t nADF = frequencyADF / PFD_ADF;
     ImproperFraction fRefADF(PFD_ADF * R_ADF, offsetADF * R_ADF, nADF);
 
     // Si5351 multisynth with 900 MHz VCO
@@ -57,7 +58,8 @@ int main()
     si5351.setOutput(0, true);
 
     // ADF4351
-
+    ADF4351 adf4351(PLL_LE, SPI_PORT);
+    adf4351.setN(nADF);
 
     return 0;
 }

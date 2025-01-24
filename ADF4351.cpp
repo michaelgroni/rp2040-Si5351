@@ -1,42 +1,34 @@
 #include "ADF4351.hpp"
 
-#include "hardware/spi.h"
-
-void ADF4351::write(const uint32_t frequency)
+void ADF4351::setN(const uint_least16_t n)
 {
-   auto fPll = pllFrequency(frequency);
-
-   if (fPll != oldPllFrequency)
+   if (this->n != n)
    {
-        oldPllFrequency = fPll;
-
-        double nPll = fPll / 20000.0;
-        uint32_t intPll = (int) nPll;
-        uint fracPll = (int) (2000 * (nPll - intPll));
-        uint32_t r0value = (intPll << 15) + (fracPll << 3);
+        this->n = n;
 
         // write R5
         uint8_t r5[] = {0x00, 0x58, 0x00, 0x05};
         writePLL(r5);
 
         // write R4
-        uint8_t r4[] = {0x00, 0x30, 0x12, 0x3C};
+        uint8_t r4[] = {0x00, 0x30, 0x10, 0x3C};
         writePLL(r4);
         
   
         // write R3
-        uint8_t r3[] = {0x00, 0x04, 0x04, 0xB3};
+        uint8_t r3[] = {0x00, 0x40, 0x04, 0xB3};
         writePLL(r3);
     
         // write R2
-        uint8_t r2[] = {0x19, 0x3E, 0xBE, 0x42};
+        uint8_t r2[] = {0x18, 0x19, 0x0F, 0xC2};
         writePLL(r2);        
   
         // write R1
-        uint8_t r1[] = {0x08, 0x00, 0xBE, 0x81};
+        uint8_t r1[] = {0x08, 0x00, 0x80, 0x11};
         writePLL(r1);
        
         // write R0
+        uint32_t r0value = ((uint32_t) n) << 15;
         uint8_t r0[4];
         uint8_t* fake8bit = (uint8_t*) &r0value;
         for (size_t i = 0; i<4; i++)
@@ -47,8 +39,8 @@ void ADF4351::write(const uint32_t frequency)
    }
 }
 
-ADF4351::ADF4351(const uint8_t pllOutLE)
-:PLL_OUT_LE(pllOutLE)
+ADF4351::ADF4351(const uint8_t pllOutLE, spi_inst_t* spiPort)
+:PLL_OUT_LE(pllOutLE), spiPort(spiPort)
 {
     // chip select
     gpio_init(PLL_OUT_LE);
@@ -56,26 +48,10 @@ ADF4351::ADF4351(const uint8_t pllOutLE)
     gpio_put(PLL_OUT_LE, 1);
 }
 
-uint32_t ADF4351::pllFrequency(uint32_t frequency) const
-{
-    auto mode = I2Cinput::getInstance()->getMode();
-
-    switch (mode)
-    {
-        case usb: // or cw
-           frequency += 1500;
-           break;
-        case lsb:
-           frequency -= 1500;
-           break;
-    }
-
-    return frequency + 21600000;
-}
 
 void ADF4351::writePLL(const uint8_t *values)
 {
     gpio_put(PLL_OUT_LE, 0);
-    spi_write_blocking(SPI_PORT, values, 4);
+    spi_write_blocking(spiPort, values, 4);
     gpio_put(PLL_OUT_LE, 1);
 }

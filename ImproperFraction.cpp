@@ -2,32 +2,19 @@
 
 #include <numeric>
 
-uint32_t ImproperFraction::gcd(uint32_t x, uint32_t y)
-{
-    if (x == 0)
-        return y;
-    if (y == 0)
-        return x;
-    if (x < y)
-        return gcd(y, x);
-    return gcd(y, x % y);
-}
-
 ImproperFraction::ImproperFraction(uint32_t a, uint32_t b, uint32_t c)
 {
-    if (b > c)
+    if (b >= c)
     {
         const auto n = b / c;
         a += n;
         b -= n * c;
     }
 
-    if (b > 3 && c > 3)
-    {
-        const auto g = gcd(b, c);
-        b = b / g;
-        c = c / g;
-    }
+
+    const auto g = gcd(b, c);
+    b = b / g;
+    c = c / g;
 
     this->a = a;
     this->b = b;
@@ -38,29 +25,29 @@ ImproperFraction::ImproperFraction(uint32_t b, uint32_t c)
     : ImproperFraction(0, b, c)
 {}
 
-uint32_t ImproperFraction::getA()
+uint32_t ImproperFraction::getA() const
 {
     return a;
 }
 
-uint32_t ImproperFraction::getB()
+uint32_t ImproperFraction::getB() const
 {
     return b;
 }
 
-uint32_t ImproperFraction::getC()
+uint32_t ImproperFraction::getC() const
 {
     return c;
 }
 
-ImproperFraction operator/(uint32_t n, ImproperFraction ipf)
+ImproperFraction operator/(const uint32_t n, const ImproperFraction& ipf)
 {
     const auto a = ipf.getA();
     const auto b = ipf.getB();
     const auto c = ipf.getC();
 
-    uint64_t newB = n * c;
-    uint64_t newC = a * c + b;
+    uint32_t newB = n; 
+    uint32_t newC = a + b/c;
 
     uint32_t newA = 0;
     while (newB >= newC)
@@ -68,6 +55,12 @@ ImproperFraction operator/(uint32_t n, ImproperFraction ipf)
         newA++;
         newB = newB -newC;
     }
+
+    const auto g = gcd(newB, newC);
+    newB = newB / g;
+    newC = newC / g;
+
+
 
     while (newC > 1'048'575) // Si5351 restriction
     {
