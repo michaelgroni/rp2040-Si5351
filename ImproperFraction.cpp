@@ -46,8 +46,8 @@ ImproperFraction operator/(const uint32_t n, const ImproperFraction& ipf)
     const auto b = ipf.getB();
     const auto c = ipf.getC();
 
-    uint32_t newB = n; 
-    uint32_t newC = a + b/c;
+    uint64_t newB = n; 
+    uint64_t newC = ((uint64_t) a*c + b) / c;
 
     uint32_t newA = 0;
     while (newB >= newC)

@@ -34,7 +34,7 @@ int main()
     const uint32_t PFD_ADF = 100000; // int-Mode => PFD == step
     const uint8_t R_ADF = 100;
 
-    uint32_t frequency = 451600050;
+    uint32_t frequency = 451600010;
     uint32_t offsetADF = frequency % PFD_ADF;
     uint32_t frequencyADF = frequency - offsetADF;
     const uint16_t nADF = frequencyADF / PFD_ADF;
