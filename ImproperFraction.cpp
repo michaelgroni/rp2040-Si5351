@@ -1,6 +1,6 @@
 #include "ImproperFraction.hpp"
 
-#include <numeric>
+#include <cmath>
 
 ImproperFraction::ImproperFraction(uint32_t a, uint32_t b, uint32_t c)
 {
@@ -42,31 +42,21 @@ uint32_t ImproperFraction::getC() const
 
 ImproperFraction operator/(const uint32_t n, const ImproperFraction& ipf)
 {
-    const auto a = ipf.getA();
-    const auto b = ipf.getB();
-    const auto c = ipf.getC();
+    const auto ipfA = ipf.getA();
+    const auto ipfB = ipf.getB();
+    const auto ipfC = ipf.getC();
 
-    uint64_t newB = n; 
-    uint64_t newC = ((uint64_t) a*c + b) / c;
+    double result = n / (ipfA + (double) ipfB / ipfC);
 
-    uint32_t newA = 0;
-    while (newB >= newC)
-    {
-        newA++;
-        newB = newB -newC;
-    }
+    uint32_t a = std::floor(result);
 
-    const auto g = gcd(newB, newC);
-    newB = newB / g;
-    newC = newC / g;
+    double fraction = result - a;
+    uint64_t c = 100'000'000;
+    uint64_t b = fraction * 100'000'000;
 
+    auto g = gcd(b, c);
+    c = c / g;
+    b = b / g;
 
-
-    while (newC > 1'048'575) // Si5351 restriction
-    {
-        newB = newB >> 1;
-        newC = newC >> 1;
-    }
-
-    return ImproperFraction(newA, (uint32_t) newB, (uint32_t) newC);
+    return ImproperFraction(a, b, c);
 }
