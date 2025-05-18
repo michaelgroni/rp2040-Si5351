@@ -7,5 +7,5 @@ target_link_libraries(rp2040-Si5351
         )
         
 target_link_libraries(rp2040_Si531 Si5351.cpp)
-        )
+        
 target_include_directories (rp2040-Si5351 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
