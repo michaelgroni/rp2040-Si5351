@@ -187,7 +187,7 @@ void Si5351::setMultisynth0to5parameters(const uint8_t multisynth, const uint32_
     data.at(3) |= outDiv;
     data.at(3) &= 0xF3;     // divide by a value other than 4
 
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
 void Si5351::setOutputDisableState(uint8_t clkIndex, const uint8_t disState)
@@ -293,5 +293,5 @@ void Si5351::setPllParameters(const char pll, const uint32_t integer, const uint
     }
 
     const auto data = registerContent(address, integer, numerator, denominator);
-    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), sizeof(data), false);
+    i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
