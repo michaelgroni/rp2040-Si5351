@@ -57,15 +57,20 @@ array<uint8_t, 9> Si5351::registerContent(const uint8_t address, const uint a, c
 
 void Si5351::setChrystalLoadCapacitance(uint8_t cLoad)
 {
-    array<uint8_t, 2> data {183, 0xD2}; // default value 10 pF
+    array<uint8_t, 2> data {183, 0x12}; // reserved bits set according to datasheet
 
-    if (cLoad == 6) // 6 pF
+    switch (cLoad)
     {
-        data.at(1) &= 0x7F;
-    }
-    else if (cLoad == 8) // 8 pF
-    {
-        data.at(1) &= 0xBF;
+        case 6:
+            data.at(1) |= 0x40;
+            break;
+        case 8:
+            data.at(1) |= 0x80;
+            break;
+        case 10:
+        default:
+            data.at(1) |= 0xC0;
+            break;
     }
 
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);    
