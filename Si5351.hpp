@@ -27,13 +27,6 @@ private:
      * @brief Enables fanout.
      */
     void enableFanout();
-
-    /**
-     * @brief Reads a single byte from the Si5351 blocking.
-     * @param reg ist the register to read from.
-     * 
-     */
-    uint8_t readByte(uint8_t reg) const;
     
      /**
      * @brief Returns register contents calculated from divider parameters.
@@ -83,6 +76,13 @@ public:
      * @brief Disables the OEB pin.
     */
     void disableOEBPin();
+
+    /**
+     * @brief Reads a single byte from the Si5351 blocking.
+     * @param reg ist the register to read from.
+     * 
+     */
+    uint8_t readByte(uint8_t reg) const;
 
     /**
      * @brief Resets PLLA or PLLB.
