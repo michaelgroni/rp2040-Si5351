@@ -18,9 +18,9 @@ target_link_libraries(Si5351 pico_stdlib hardware_i2c)
 #include "Si5351.hpp"
 
 
-const auto I2C_PORT {i2c0};
-const uint8_t I2C_SDA {0};
-const uint8_t I2C_SCL {1};
+constexpr auto I2C_PORT {i2c0};
+constexpr uint8_t I2C_SDA {0};
+constexpr uint8_t I2C_SCL {1};
 
 
 int main()
