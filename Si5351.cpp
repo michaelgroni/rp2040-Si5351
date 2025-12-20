@@ -246,9 +246,10 @@ void Si5351::setOutputsOff()
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 
     // power down
-    data.at(1) = 0x80;
     for (data.at(0) = 16; data.at(0) <= 23; (data.at(0))++)
     {
+        const auto registerContent = readByte(data.at(0));
+        data.at(1) = registerContent | 0x80;
         i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
     }
 }
