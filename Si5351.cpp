@@ -116,26 +116,37 @@ void Si5351::disableOEBPin()
 
 void Si5351::resetPll(const char pll) const
 {
-    array<uint8_t, 2> data {177, 0};
+    uint8_t mask;
 
     switch (pll)
     {
         case 'a':
-            data.at(1) = 0x20;
+            mask = 0x20; // bit 5
             break;
         case 'b':
-            data.at(1) = 0x80;
+            mask = 0x80; // bit 7
             break;
         default:
             return;
     }
 
+    constexpr uint8_t ADDRESS = 177;
+
+    auto registerContent = readByte(ADDRESS);
+    registerContent |= mask; // set bit 5 or 7
+
+    array<uint8_t, 2> data {ADDRESS, registerContent};
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
 void Si5351::resetPll() const
 {
-    array<uint8_t, 2> data {177, 0xA0};
+    constexpr uint8_t ADDRESS = 177;
+
+    auto registerContent = readByte(ADDRESS);
+    registerContent |= 0xA0; // set bits 5 and 7
+
+    array<uint8_t, 2> data {ADDRESS, registerContent};
     i2c_write_blocking(I2C_PORT, I2C_ADDR, data.data(), data.size(), false);
 }
 
