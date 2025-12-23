@@ -151,4 +151,11 @@ public:
      * @param denominator is c in (a + b/c).
      */
     void setPllParameters(const char pll, const uint32_t integer, const uint32_t numerator, const uint32_t denominator);
+
+    /**
+     * @brief Enables the integer mode of PLL A or B.
+     * @param pll must be 'a' (PLL A) or 'b' (PLL B). Other values are ignored.
+     * @param intModeOn enables integer mode if true is given, otherwise disables it.
+     */
+    void setPllIntMode(const char pll, const bool intModeOn);
 };
