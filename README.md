@@ -54,4 +54,3 @@ There is an [API documentation](https://michaelgroni.github.io/rp2040-Si5351). I
 - Support phase offset.
 - Enable fanout.
 - Support DIVBY4.
-- Support multisynth integer mode.
